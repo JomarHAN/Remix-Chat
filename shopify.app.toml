@@ -3,7 +3,7 @@
 client_id = "b018260857e4d3a597dd2a737d6e9777"
 name = "remix chat"
 handle = "remix-chat-129"
-application_url = "https://preston-ing-willing-raid.trycloudflare.com"
+application_url = "https://gamecube-counter-nottingham-mysimon.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = ""
+scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://preston-ing-willing-raid.trycloudflare.com/auth/callback",
-  "https://preston-ing-willing-raid.trycloudflare.com/auth/shopify/callback",
-  "https://preston-ing-willing-raid.trycloudflare.com/api/auth/callback"
+  "https://gamecube-counter-nottingham-mysimon.trycloudflare.com/auth/callback",
+  "https://gamecube-counter-nottingham-mysimon.trycloudflare.com/auth/shopify/callback",
+  "https://gamecube-counter-nottingham-mysimon.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
