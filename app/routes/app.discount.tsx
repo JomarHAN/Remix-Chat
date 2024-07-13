@@ -1,5 +1,5 @@
-import { ActionFunction, json } from "@remix-run/node";
-import { Form, useActionData, useSubmit } from "@remix-run/react";
+import { type ActionFunction, json } from "@remix-run/node";
+import { Form, useSubmit } from "@remix-run/react";
 import {
   Button,
   Card,
@@ -122,8 +122,6 @@ const Discount = () => {
   const [minAmount, setMinAmount] = useState(0);
   const [endDate, setEndDate] = useState("");
   const submit = useSubmit();
-  const actionData = useActionData<typeof action>();
-  console.log(actionData);
 
   const handleSubmit = () => submit({}, { replace: true, method: "post" });
   return (
