@@ -32,8 +32,9 @@ model Session {
 }
 
 model User {
-  id       String @id
-  fullName String
-  email    String
-  phone    String
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String
+  phone     String
 }

@@ -1,5 +1,5 @@
 import type { ActionFunction } from "@remix-run/node";
-import { Form, json, useActionData, useSubmit } from "@remix-run/react";
+import { Form, json, useSubmit } from "@remix-run/react";
 import {
   Button,
   Card,
@@ -8,17 +8,17 @@ import {
   Page,
   TextField,
 } from "@shopify/polaris";
-import React, { useState } from "react";
+import { useState } from "react";
 import { createUser } from "~/api/prisma.server";
 import { authenticate } from "~/shopify.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const { admin } = await authenticate.admin(request);
   const formData = await request.formData();
-  const dataObject = Object.fromEntries(formData);
-  const fullName = dataObject.fullname.toString();
-  const phone = dataObject.phone.toString();
-  const email = dataObject.email.toString();
+  const firstName = formData.get("firstname");
+  const lastName = formData.get("lastname");
+  const email = formData.get("email");
+  const phone = formData.get("phone");
 
   try {
     const response = await admin.graphql(
@@ -34,7 +34,6 @@ export const action: ActionFunction = async ({ request }) => {
           id
           email
           phone
-          taxExempt
           firstName
           lastName
           smsMarketingConsent {
@@ -56,16 +55,18 @@ export const action: ActionFunction = async ({ request }) => {
           input: {
             email: email,
             phone: phone,
-            firstName: fullName,
-            lastName: "Lastname",
+            firstName: firstName,
+            lastName: lastName,
             addresses: [
               {
-                address1: "412 fake st",
-                city: "Ottawa",
-                phone: "+16469999999",
-                zip: "A1A 4A1",
-                lastName: "Lastname",
-                firstName: "Steve",
+                address1: "905 BRICKELL BAY DR",
+                city: "Miami",
+                province: "FL",
+                phone: phone,
+                zip: "33131",
+                lastName: lastName,
+                firstName: firstName,
+                country: "USA",
               },
             ],
           },
@@ -74,13 +75,17 @@ export const action: ActionFunction = async ({ request }) => {
     );
 
     if (response.ok) {
+      const {
+        data: { data },
+      } = await response.json();
       await createUser({
-        id: "3",
+        id: 1,
         email: email,
-        fullName: fullName,
+        firstName: firstName,
+        lastName: lastName,
         phone: phone,
       });
-      return json(response);
+      return json({ data });
     }
 
     return null;
@@ -93,7 +98,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 const Customer = () => {
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const submit = useSubmit();
@@ -105,15 +111,25 @@ const Customer = () => {
           <Card>
             <Form method="post" onSubmit={() => submit}>
               <Layout.Section>
-                <InlineGrid columns={3} gap={"400"}>
+                <InlineGrid columns={2} gap={"400"}>
                   <TextField
                     autoComplete=""
                     type="text"
-                    label="Full Name"
-                    name="fullname"
-                    value={fullName}
-                    onChange={(value) => setFullName(value)}
+                    label="First Name"
+                    name="firstname"
+                    value={firstName}
+                    onChange={(value) => setFirstName(value)}
                   />
+                  <TextField
+                    autoComplete=""
+                    type="text"
+                    label="Last Name"
+                    name="lastname"
+                    value={lastName}
+                    onChange={(value) => setLastName(value)}
+                  />
+                </InlineGrid>
+                <InlineGrid columns={2} gap={"400"}>
                   <TextField
                     autoComplete=""
                     type="email"

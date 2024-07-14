@@ -3,7 +3,7 @@
 client_id = "b018260857e4d3a597dd2a737d6e9777"
 name = "remix chat"
 handle = "remix-chat-129"
-application_url = "https://footwear-serves-soc-intranet.trycloudflare.com"
+application_url = "https://continuously-flesh-turned-treasures.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_inventory,read_products,write_customers,write_disc
 
 [auth]
 redirect_urls = [
-  "https://footwear-serves-soc-intranet.trycloudflare.com/auth/callback",
-  "https://footwear-serves-soc-intranet.trycloudflare.com/auth/shopify/callback",
-  "https://footwear-serves-soc-intranet.trycloudflare.com/api/auth/callback"
+  "https://continuously-flesh-turned-treasures.trycloudflare.com/auth/callback",
+  "https://continuously-flesh-turned-treasures.trycloudflare.com/auth/shopify/callback",
+  "https://continuously-flesh-turned-treasures.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
